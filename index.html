@@ -1,14 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <h1>Welcome to my website</h1>
-        <p>This is a paragraph</p>
-    </div>
-</body>
-</html>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>随机抽学号</title>
+                <style>
+                        body {
+                                    font-family: Arial, sans-serif;
+                                                text-align: center;
+                                                            margin-top: 50px;
+                                                                    }
+                                                                            #result {
+                                                                                        font-size: 24px;
+                                                                                                    margin-top: 20px;
+                                                                                                                color: #007BFF;
+                                                                                                                        }
+                                                                                                                                button {
+                                                                                                                                            padding: 10px 20px;
+                                                                                                                                                        font-size: 16px;
+                                                                                                                                                                    cursor: pointer;
+                                                                                                                                                                            }
+                                                                                                                                                                                </style>
+                                                                                                                                                                                </head>
+                                                                                                                                                                                <body>
+                                                                                                                                                                                    <h1>随机抽学号</h1>
+                                                                                                                                                                                        <button onclick="pickStudent()">点击抽取</button>
+                                                                                                                                                                                            <div id="result"></div>
+
+                                                                                                                                                                                                <script>
+                                                                                                                                                                                                        // 学号数组
+                                                                                                                                                                                                                const studentIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+                                                                                                                                                                                                                        // 随机抽取学号的函数
+                                                                                                                                                                                                                                function pickStudent() {
+                                                                                                                                                                                                                                            const randomIndex = Math.floor(Math.random() * studentIds.length);
+                                                                                                                                                                                                                                                        const pickedStudentId = studentIds[randomIndex];
+                                                                                                                                                                                                                                                                    document.getElementById("result").innerText = `抽中的学号是: ${pickedStudentId}`;
+                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                </script>
+                                                                                                                                                                                                                                                                                </body>
+                                                                                                                                                                                                                                                                                </html>
