@@ -10,8 +10,9 @@
             margin: 0;
             padding: 0;
         }
+        
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
             margin: 0;
             padding: 20px;
             min-height: 100vh;
@@ -19,90 +20,218 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
             color: #333;
+            overflow-x: hidden;
         }
+        
         .container {
             width: 100%;
             max-width: 500px;
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
         }
+        
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
         h1 {
             color: #ff6b6b;
-            margin-bottom: 15px;
-            font-size: 28px;
-            font-weight: 600;
-        }
-        .start-date {
-            margin: 15px 0;
-            font-size: 16px;
-            color: #666;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
-        }
-        .time-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        .time-unit {
-            flex: 1 1 80px;
-            min-width: 80px;
-            padding: 15px 5px;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        .time-unit.updating {
-            transform: scale(1.05);
-            background-color: #ffecec;
-        }
-        .number {
+            margin-bottom: 20px;
             font-size: 32px;
-            font-weight: bold;
-            color: #ff6b6b;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
             display: inline-block;
-            min-width: 50px;
-            transition: all 0.3s ease;
         }
-        .number.updating {
-            color: #ff4757;
-            transform: scale(1.1);
+        
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            border-radius: 3px;
         }
-        .unit-label {
-            font-size: 14px;
-            color: #666;
-            margin-top: 5px;
-        }
-        .full-time {
-            margin-top: 20px;
+        
+        .start-date {
+            margin: 20px 0;
             font-size: 16px;
             color: #666;
             padding: 12px;
             background-color: rgba(255, 255, 255, 0.7);
             border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
         }
+        
+        .time-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 25px 0;
+            perspective: 1000px;
+        }
+        
+        .time-unit {
+            flex: 1 1 90px;
+            min-width: 90px;
+            padding: 18px 8px;
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .time-unit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e8e);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .time-unit.updating {
+            transform: translateY(-8px) rotateX(10deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .time-unit.updating::before {
+            opacity: 1;
+        }
+        
+        .number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ff6b6b;
+            display: inline-block;
+            min-width: 50px;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-shadow: 0 2px 4px rgba(255, 107, 107, 0.2);
+            position: relative;
+        }
+        
+        .number.updating {
+            color: #ff4757;
+            transform: scale(1.15);
+        }
+        
+        .number::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: #ff4757;
+            transition: width 0.3s ease;
+        }
+        
+        .number.updating::after {
+            width: 30px;
+        }
+        
+        .unit-label {
+            font-size: 14px;
+            color: #777;
+            margin-top: 8px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .full-time {
+            margin-top: 25px;
+            font-size: 16px;
+            color: #666;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+        
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 15px 30px rgba(255, 107, 107, 0.2);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            }
         }
+        
         .pulse {
-            animation: pulse 1s infinite;
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        
+        /* 背景装饰元素 */
+        .bg-circle {
+            position: fixed;
+            border-radius: 50%;
+            background: rgba(255, 107, 107, 0.1);
+            z-index: -1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            top: -100px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            bottom: -50px;
+            left: -50px;
         }
     </style>
 </head>
 <body>
+    <!-- 背景装饰元素 -->
+    <div class="bg-circle circle-1"></div>
+    <div class="bg-circle circle-2"></div>
+    
     <div class="container">
-        <h1>我们</h1>
+        <h1>️我们</h1>
         
         <div class="start-date" id="start-date-display"></div>
         
@@ -126,10 +255,11 @@
         </div>
         
         <div class="full-time" id="full-time"></div>
- 
     </div>
-       <div class="full-time">最终解释权归malisa所有</div>
+    <div class="full-time">最终解释权归malisa所有</div>
+
     <script>
+        // 获取DOM元素
         const daysEl = document.getElementById('days');
         const hoursEl = document.getElementById('hours');
         const minutesEl = document.getElementById('minutes');
@@ -138,18 +268,26 @@
         const startDateDisplay = document.getElementById('start-date-display');
         const timeUnits = document.querySelectorAll('.time-unit');
         const numbers = document.querySelectorAll('.number');
+        const container = document.querySelector('.container');
         
+        // 设置开始日期 (2025年4月13日 20:04:10)
         const fixedStartDate = new Date(2025, 3, 13, 20, 4, 10);
-      
+        
+        // 显示开始日期
         startDateDisplay.textContent = `我们的纪念日 ${fixedStartDate.toLocaleString()}`;
-    
+        
+        // 高级动画效果
         function animateUpdate(element) {
             element.classList.add('updating');
+            element.querySelector('.number').classList.add('updating');
+            
             setTimeout(() => {
                 element.classList.remove('updating');
-            }, 300);
+                element.querySelector('.number').classList.remove('updating');
+            }, 500);
         }
         
+        // 计算时间差并更新显示
         function updateTime() {
             const now = new Date();
             const diffMs = now - fixedStartDate;
@@ -160,6 +298,7 @@
             const minutes = Math.floor((diffSec % 3600) / 60);
             const seconds = diffSec % 60;
             
+            // 更新显示并添加动画
             if (daysEl.textContent !== days.toString()) {
                 daysEl.textContent = days;
                 animateUpdate(daysEl.parentElement);
@@ -175,21 +314,30 @@
             
             secondsEl.textContent = seconds;
             animateUpdate(secondsEl.parentElement);
-        
+            
+            // 显示完整时间
             fullTimeEl.textContent = `已有回忆 ${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
             
+            // 每分钟添加一次脉冲动画
             if (seconds === 0) {
                 timeUnits.forEach(unit => {
                     unit.classList.add('pulse');
                     setTimeout(() => {
                         unit.classList.remove('pulse');
-                    }, 1000);
+                    }, 1500);
                 });
+                
+                // 容器浮动效果
+                container.style.animation = 'float 3s ease-in-out';
+                setTimeout(() => {
+                    container.style.animation = '';
+                }, 3000);
             }
         }
-  
+        
+        // 页面加载时立即更新一次
         updateTime();
-    
+        
         setInterval(updateTime, 1000);
     </script>
 </body>
