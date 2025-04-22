@@ -272,11 +272,10 @@
         
         // 设置开始日期 (2025年4月13日 20:04:10)
         const fixedStartDate = new Date(2025, 3, 13, 20, 4, 10);
+        const meetingDate = new Date(2023,10,1,9,5,20);
         
-        // 显示开始日期
         startDateDisplay.textContent = `我们的纪念日 ${fixedStartDate.toLocaleString()}`;
         
-        // 高级动画效果
         function animateUpdate(element) {
             element.classList.add('updating');
             element.querySelector('.number').classList.add('updating');
@@ -287,10 +286,10 @@
             }, 500);
         }
         
-        // 计算时间差并更新显示
         function updateTime() {
             const now = new Date();
             const diffMs = now - fixedStartDate;
+            const diffMss = now - meetingDate;
             
             const diffSec = Math.floor(diffMs / 1000);
             const days = Math.floor(diffSec / (3600 * 24));
@@ -298,7 +297,12 @@
             const minutes = Math.floor((diffSec % 3600) / 60);
             const seconds = diffSec % 60;
             
-            // 更新显示并添加动画
+            const diffSecs = Math.floor(diffMss / 1000);
+            const dayss = Math.floor(diffSecs / (3600 * 24));
+            const hourss = Math.floor((diffSecs % (3600 * 24)) / 3600);
+            const minutess = Math.floor((diffSecs % 3600) / 60);
+            const secondss = diffSecs % 60;
+    
             if (daysEl.textContent !== days.toString()) {
                 daysEl.textContent = days;
                 animateUpdate(daysEl.parentElement);
@@ -316,7 +320,7 @@
             animateUpdate(secondsEl.parentElement);
             
             // 显示完整时间
-            fullTimeEl.textContent = `已有回忆 ${days} 天 ${hours} 小时 ${minutes} 分钟 ${seconds} 秒`;
+            fullTimeEl.textContent = `已有回忆 ${dayss} 天 ${hourss} 小时 ${minutess} 分钟 ${secondss} 秒`;
             
             // 每分钟添加一次脉冲动画
             if (seconds === 0) {
